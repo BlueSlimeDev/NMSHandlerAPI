@@ -7,22 +7,19 @@ import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
 import me.blueslime.menuhandlerapi.utils.SlotHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 
 import static org.bukkit.Bukkit.createInventory;
 
-public class StaticInventory extends MenuInventory implements InventoryHolder {
-    private final Collection<MenuItem> itemList = Collections.emptyList();
+public class StaticInventory extends MenuInventory {
     private final Inventory inventory;
 
     private final String title;
 
-    private boolean introduce;
+    private final boolean introduce;
     private final int rows;
 
     public StaticInventory(String identifier, String title, int size, boolean introduce) {
@@ -45,7 +42,7 @@ public class StaticInventory extends MenuInventory implements InventoryHolder {
     private void load() {
         inventory.clear();
 
-        for (MenuItem item : itemList) {
+        for (MenuItem item : getItemStorage().getValues()) {
             MenuItem menuItem = getItemBuilder().processItem(
                     null,
                     item
@@ -61,6 +58,11 @@ public class StaticInventory extends MenuInventory implements InventoryHolder {
             itemStack = ItemNBT.addString(
                     itemStack, "mhi-" + getId(),
                     menuItem.getIdentifier()
+            );
+
+            itemStack = ItemNBT.addString(
+                    itemStack, "mhm-name",
+                    getId()
             );
 
             if (menuItem.isBlocked()) {
@@ -109,9 +111,4 @@ public class StaticInventory extends MenuInventory implements InventoryHolder {
         return rows;
     }
 
-    @Override
-    @Nonnull
-    public Inventory getInventory() {
-        return inventory;
-    }
 }

@@ -7,19 +7,15 @@ import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
 import me.blueslime.menuhandlerapi.utils.SlotHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
-import java.util.Collections;
 
 import static org.bukkit.Bukkit.createInventory;
 
-public class DynamicInventory extends MenuInventory implements InventoryHolder {
-    private final Collection<MenuItem> itemList = Collections.emptyList();
+public class DynamicInventory extends MenuInventory {
     private final String title;
-    private boolean introduce;
+    private final boolean introduce;
     private final int rows;
 
     public DynamicInventory(String identifier, String title, int size, boolean introduce) {
@@ -42,7 +38,7 @@ public class DynamicInventory extends MenuInventory implements InventoryHolder {
                 title
         );
 
-        for (MenuItem item : itemList) {
+        for (MenuItem item : getItemStorage().getValues()) {
             MenuItem menuItem = getItemBuilder().processItem(
                     player,
                     item
@@ -53,6 +49,11 @@ public class DynamicInventory extends MenuInventory implements InventoryHolder {
             itemStack = ItemNBT.addString(
                     itemStack, "mhi-" + getId(),
                     menuItem.getIdentifier()
+            );
+
+            itemStack = ItemNBT.addString(
+                    itemStack, "mhm-name",
+                    getId()
             );
 
             if (menuItem.isBlocked()) {
@@ -83,7 +84,7 @@ public class DynamicInventory extends MenuInventory implements InventoryHolder {
 
     @Override
     public Collection<MenuItem> getItemList() {
-        return itemList;
+        return getItemStorage().getValues();
     }
 
     @Override
@@ -105,11 +106,5 @@ public class DynamicInventory extends MenuInventory implements InventoryHolder {
     @Override
     public int getRows() {
         return rows;
-    }
-
-    @Override
-    @Nonnull
-    public Inventory getInventory() {
-        return load(null);
     }
 }

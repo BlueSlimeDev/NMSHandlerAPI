@@ -4,11 +4,10 @@ import me.blueslime.menuhandlerapi.inventory.item.DefaultItemBuilder;
 import me.blueslime.menuhandlerapi.item.MenuItem;
 import me.blueslime.menuhandlerapi.utils.storage.PluginStorage;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryHolder;
 
 import java.util.Collection;
 
-public abstract class MenuInventory implements InventoryHolder {
+public abstract class MenuInventory {
     private final PluginStorage<String, MenuItem> itemStorage = PluginStorage.initAsHash();
     private InventoryItemBuilder itemBuilder = new DefaultItemBuilder();
 
