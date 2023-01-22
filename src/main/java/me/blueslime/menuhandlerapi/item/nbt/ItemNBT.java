@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import me.blueslime.menuhandlerapi.item.reflection.BukkitEnum;
 import me.blueslime.menuhandlerapi.item.reflection.MinecraftEnum;
+import me.blueslime.menuhandlerapi.item.reflection.ReferencedMethodException;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
@@ -48,13 +49,24 @@ public class ItemNBT {
 
             this.bukkitItem = itemStack.getMethod("asBukkitCopy", item);
 
-            if (isModern()) {
+            if (isSpecified("v1_18_R1")) {
                 this.hasTag = item.getMethod("r");
                 this.getTag = item.getMethod("s");
                 this.setTag = item.getMethod("c", nbtCompound);
 
-                this.setString = nbtCompound.getMethod("a", String.class, String.class);
-                this.getString = nbtCompound.getMethod("l", String.class);
+                secondAttempt();
+            } else if (isSpecified("v1_18_R2")) {
+                this.hasTag = item.getMethod("s");
+                this.getTag = item.getMethod("t");
+                this.setTag = item.getMethod("c", nbtCompound);
+
+                secondAttempt();
+            } else if (isSpecified("v1_19_R1")) {
+                this.hasTag = item.getMethod("t");
+                this.getTag = item.getMethod("u");
+                this.setTag = item.getMethod("c", nbtCompound);
+
+                secondAttempt();
             } else {
                 this.hasTag = item.getMethod("hasTag");
                 this.getTag = item.getMethod("getTag");
@@ -65,6 +77,26 @@ public class ItemNBT {
             }
         } catch (ReflectiveOperationException ignored) {
 
+        }
+    }
+
+    public void secondAttempt() {
+        Class<?> nbtCompound = MinecraftEnum.NBT_COMPOUND.getBukkitProvided();
+
+        try {
+            this.setString = nbtCompound.getMethod("a", String.class, String.class);
+            this.getString = nbtCompound.getMethod("l", String.class);
+        } catch (Exception ignored) {
+            try {
+                this.setString = nbtCompound.getMethod("putString", String.class, String.class);
+                this.getString = nbtCompound.getMethod("getString", String.class);
+            } catch (Exception throwedException) {
+                Exception exception = new ReferencedMethodException(MinecraftEnum.NBT_COMPOUND, version);
+
+                exception.addSuppressed(throwedException);
+
+                exception.printStackTrace();
+            }
         }
     }
 
@@ -121,8 +153,7 @@ public class ItemNBT {
         return getInstance().getString(stack, k);
     }
 
-    private boolean isModern() {
-        return version.contains("v1_18_") ||
-                version.contains("v1_19_");
+    private boolean isSpecified(String version) {
+        return this.version.equals(version);
     }
 }
