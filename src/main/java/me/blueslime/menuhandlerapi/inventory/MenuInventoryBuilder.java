@@ -23,8 +23,9 @@ public class MenuInventoryBuilder {
      * or disable it using false
      * @param canIntroduce {@link org.bukkit.inventory.ItemStack}
      */
-    public void setCanIntroduce(boolean canIntroduce) {
+    public MenuInventoryBuilder setCanIntroduce(boolean canIntroduce) {
         this.canIntroduce = canIntroduce;
+        return this;
     }
 
     /**
