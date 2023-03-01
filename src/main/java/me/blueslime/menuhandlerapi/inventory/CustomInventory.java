@@ -1,19 +1,19 @@
 package me.blueslime.menuhandlerapi.inventory;
 
 import me.blueslime.menuhandlerapi.inventory.item.DefaultItemBuilder;
-import me.blueslime.menuhandlerapi.item.MenuItem;
+import me.blueslime.menuhandlerapi.item.InventoryItem;
 import me.blueslime.menuhandlerapi.utils.storage.PluginStorage;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
 
-public abstract class MenuInventory {
-    private final PluginStorage<String, MenuItem> itemStorage = PluginStorage.initAsHash();
+public abstract class CustomInventory {
+    private final PluginStorage<String, InventoryItem> itemStorage = PluginStorage.initAsHash();
     private InventoryItemBuilder itemBuilder = new DefaultItemBuilder();
 
     private final String id;
 
-    public MenuInventory(String id) {
+    public CustomInventory(String id) {
         this.id = id;
     }
 
@@ -31,32 +31,26 @@ public abstract class MenuInventory {
         itemStorage.clear();
     }
 
-    public void addItem(MenuItem menuItem) {
+    public void addItem(InventoryItem inventoryItem) {
         itemStorage.set(
-                menuItem.getIdentifier(),
-                menuItem
+                inventoryItem.getIdentifier(),
+                inventoryItem
         );
     }
 
-    public PluginStorage<String, MenuItem> getItemStorage() {
+    public PluginStorage<String, InventoryItem> getItemStorage() {
         return itemStorage;
     }
 
-    public Collection<MenuItem> getItemList() {
+    public Collection<InventoryItem> getItemList() {
         return itemStorage.getValues();
     }
 
-    public abstract void openInventory(Player player);
+    public abstract void setInventory(Player player, boolean clearInventory);
 
     public InventoryItemBuilder getItemBuilder() {
         return itemBuilder;
     }
-
-    public abstract String getTitle();
-
-    public abstract int getRows();
-
-    public abstract boolean canIntroduceItems();
 
     public String getId() {
         return id;

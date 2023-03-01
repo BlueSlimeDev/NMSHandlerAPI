@@ -4,11 +4,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.function.Predicate;
 
-public class MenuItemAction {
+public class InventoryItemAction {
 
     private Predicate<InventoryClickEvent> clickEvent;
 
-    public MenuItemAction(Predicate<InventoryClickEvent> clickEvent) {
+    public InventoryItemAction(Predicate<InventoryClickEvent> clickEvent) {
         this.clickEvent = clickEvent;
     }
 

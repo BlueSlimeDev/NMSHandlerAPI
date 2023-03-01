@@ -1,75 +1,64 @@
 package me.blueslime.menuhandlerapi.inventory.types;
 
-import me.blueslime.menuhandlerapi.MenuHandlerAPI;
-import me.blueslime.menuhandlerapi.inventory.MenuInventory;
-import me.blueslime.menuhandlerapi.item.MenuItem;
+import me.blueslime.menuhandlerapi.InventoryHandlerAPI;
+import me.blueslime.menuhandlerapi.inventory.CustomInventory;
+import me.blueslime.menuhandlerapi.item.InventoryItem;
 import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
-import me.blueslime.menuhandlerapi.utils.SlotHandler;
+
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 
-import static org.bukkit.Bukkit.createInventory;
+public class DynamicInventory extends CustomInventory {
 
-public class DynamicInventory extends MenuInventory {
-    private final String title;
-    private final boolean introduce;
-    private final int rows;
-
-    public DynamicInventory(String identifier, String title, int size, boolean introduce) {
+    public DynamicInventory(String identifier) {
         super(identifier);
 
-        this.introduce = introduce;
-        this.title     = title;
-        this.rows      = SlotHandler.fromSize(size);
-
-        MenuHandlerAPI.getMenus().put(
+        InventoryHandlerAPI.getInventories().put(
                 identifier,
                 this
         );
     }
 
-    private Inventory load(Player player) {
-        Inventory inventory = createInventory(
-                null,
-                rows,
-                title
-        );
+    private void load(Player player, boolean clearInventory) {
+        if (clearInventory) {
+            player.getInventory().clear();
+        }
 
-        for (MenuItem item : getItemStorage().getValues()) {
-            MenuItem menuItem = getItemBuilder().processItem(
+        for (InventoryItem item : getItemStorage().getValues()) {
+            InventoryItem inventoryItem = getItemBuilder().processItem(
                     player,
                     item
             );
 
-            ItemStack itemStack = menuItem.getItemStack();
+            ItemStack itemStack = inventoryItem.getItemStack();
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhi-" + getId(),
-                    menuItem.getIdentifier()
+                    itemStack, "ihi-" + getId(),
+                    inventoryItem.getIdentifier()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "mhm-name",
+                    itemStack, "iha-name",
                     getId()
             );
 
-            if (menuItem.isBlocked()) {
+            if (inventoryItem.isBlocked()) {
                 itemStack = ItemNBT.addString(
                         itemStack,
-                        "mha-blockedItem",
+                        "iha-blockedItem",
                         "true"
                 );
             }
 
-            inventory.setItem(
-                    menuItem.getSlot(),
+            player.getInventory().setItem(
+                    inventoryItem.getSlot(),
                     itemStack
             );
+
         }
-        return inventory;
+        player.updateInventory();
     }
 
     @Override
@@ -83,28 +72,12 @@ public class DynamicInventory extends MenuInventory {
     }
 
     @Override
-    public Collection<MenuItem> getItemList() {
+    public Collection<InventoryItem> getItemList() {
         return getItemStorage().getValues();
     }
 
     @Override
-    public void openInventory(Player player) {
-        player.openInventory(
-                load(player)
-        );
-    }
-
-    public boolean canIntroduceItems() {
-        return introduce;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public int getRows() {
-        return rows;
+    public void setInventory(Player player, boolean clearInventory) {
+        load(player, clearInventory);
     }
 }

@@ -1,10 +1,10 @@
 package me.blueslime.menuhandlerapi.item;
 
-import me.blueslime.menuhandlerapi.item.action.MenuItemAction;
+import me.blueslime.menuhandlerapi.item.action.InventoryItemAction;
 import org.bukkit.inventory.ItemStack;
 
-public class MenuItemBuilder {
-    private MenuItemAction action = null;
+public class InventoryItemBuilder {
+    private InventoryItemAction action = null;
 
     private ItemStack itemStack = null;
 
@@ -14,33 +14,33 @@ public class MenuItemBuilder {
 
     private int slot;
 
-    public MenuItemBuilder(String identifier, int slot) {
+    public InventoryItemBuilder(String identifier, int slot) {
         this.identifier = identifier;
         this.slot = slot;
     }
 
-    public MenuItemBuilder slot(int slot) {
+    public InventoryItemBuilder slot(int slot) {
         this.slot = slot;
         return this;
     }
 
-    public MenuItemBuilder action(MenuItemAction action) {
+    public InventoryItemBuilder action(InventoryItemAction action) {
         this.action = action;
         return this;
     }
 
-    public MenuItemBuilder item(ItemStack itemStack) {
+    public InventoryItemBuilder item(ItemStack itemStack) {
         this.itemStack = itemStack;
         return this;
     }
 
-    public MenuItemBuilder cancelClick(boolean blocked) {
+    public InventoryItemBuilder cancelClick(boolean blocked) {
         this.blocked = blocked;
         return this;
     }
 
-    public MenuItem build() {
-        return MenuItem.fromItem(
+    public InventoryItem build() {
+        return InventoryItem.fromItem(
                 identifier,
                 slot,
                 itemStack,

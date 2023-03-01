@@ -3,7 +3,7 @@
 ---
 
 * Support from 1.8.x to 1.19.x
-* Doesn't require Adapters like other menu handlers
+* Doesn't require Adapters like other inventory handlers
 * Uses NBT for Item Actions
 * Per Player Inventory or Static Inventories
 * Editable Item Actions
@@ -12,8 +12,6 @@
 ---
 
 ## Adding:
-* Inventory Open Event for OpenActions
-* Inventory Close Event for CloseActions
 * ItemBuilder
 
 ---
