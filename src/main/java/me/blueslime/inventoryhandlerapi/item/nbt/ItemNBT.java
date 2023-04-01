@@ -1,10 +1,10 @@
-package me.blueslime.menuhandlerapi.item.nbt;
+package me.blueslime.inventoryhandlerapi.item.nbt;
 
 import java.lang.reflect.Method;
 
-import me.blueslime.menuhandlerapi.item.reflection.BukkitEnum;
-import me.blueslime.menuhandlerapi.item.reflection.MinecraftEnum;
-import me.blueslime.menuhandlerapi.item.reflection.ReferencedMethodException;
+import me.blueslime.inventoryhandlerapi.item.reflection.BukkitEnum;
+import me.blueslime.inventoryhandlerapi.item.reflection.MinecraftEnum;
+import me.blueslime.inventoryhandlerapi.item.reflection.ReferencedMethodException;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 

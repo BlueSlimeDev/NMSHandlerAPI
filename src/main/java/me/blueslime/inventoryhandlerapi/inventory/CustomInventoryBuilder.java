@@ -1,7 +1,7 @@
-package me.blueslime.menuhandlerapi.inventory;
+package me.blueslime.inventoryhandlerapi.inventory;
 
-import me.blueslime.menuhandlerapi.inventory.types.DynamicInventory;
-import me.blueslime.menuhandlerapi.inventory.types.StaticInventory;
+import me.blueslime.inventoryhandlerapi.inventory.types.DynamicInventory;
+import me.blueslime.inventoryhandlerapi.inventory.types.StaticInventory;
 
 public class CustomInventoryBuilder {
     private boolean perPlayer;

@@ -1,4 +1,4 @@
-package me.blueslime.menuhandlerapi.item.reflection;
+package me.blueslime.inventoryhandlerapi.item.reflection;
 
 import org.bukkit.Bukkit;
 

@@ -1,7 +1,7 @@
-package me.blueslime.menuhandlerapi.inventory.item;
+package me.blueslime.inventoryhandlerapi.inventory.item;
 
-import me.blueslime.menuhandlerapi.inventory.InventoryItemBuilder;
-import me.blueslime.menuhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.inventory.InventoryItemBuilder;
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 import org.bukkit.entity.Player;
 
 public class DefaultItemBuilder implements InventoryItemBuilder {

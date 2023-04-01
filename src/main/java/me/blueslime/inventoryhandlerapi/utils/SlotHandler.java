@@ -1,4 +1,4 @@
-package me.blueslime.menuhandlerapi.utils;
+package me.blueslime.inventoryhandlerapi.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

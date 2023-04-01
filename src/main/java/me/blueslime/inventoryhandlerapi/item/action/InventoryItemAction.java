@@ -1,4 +1,4 @@
-package me.blueslime.menuhandlerapi.item.action;
+package me.blueslime.inventoryhandlerapi.item.action;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 

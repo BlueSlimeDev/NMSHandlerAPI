@@ -1,12 +1,12 @@
-package me.blueslime.menuhandlerapi.item.reflection;
+package me.blueslime.inventoryhandlerapi.item.reflection;
 
 import java.util.Arrays;
 import java.util.List;
 
-public enum MinecraftEnum {
-    NBT_COMPOUND("[path].[version].NBTTagCompound", "net.minecraft.nbt.NBTTagCompound");
+public enum BukkitEnum {
+    CRAFT_ITEM("[path].[version].inventory.CraftItemStack");
 
-    MinecraftEnum(String... path) {
+    BukkitEnum(String... path) {
         this.path = path;
     }
 
@@ -28,3 +28,4 @@ public enum MinecraftEnum {
         return ReflectionHandlerCache.getReference(this);
     }
 }
+

@@ -1,7 +1,7 @@
-package me.blueslime.menuhandlerapi;
+package me.blueslime.inventoryhandlerapi;
 
-import me.blueslime.menuhandlerapi.inventory.CustomInventory;
-import me.blueslime.menuhandlerapi.listener.InventoryClickListener;
+import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
+import me.blueslime.inventoryhandlerapi.listener.InventoryClickListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ConcurrentHashMap;

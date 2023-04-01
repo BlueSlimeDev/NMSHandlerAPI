@@ -1,6 +1,6 @@
-package me.blueslime.menuhandlerapi.item;
+package me.blueslime.inventoryhandlerapi.item;
 
-import me.blueslime.menuhandlerapi.item.action.InventoryItemAction;
+import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryItemBuilder {

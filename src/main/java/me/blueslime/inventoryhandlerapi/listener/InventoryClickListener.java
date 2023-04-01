@@ -1,9 +1,9 @@
-package me.blueslime.menuhandlerapi.listener;
+package me.blueslime.inventoryhandlerapi.listener;
 
-import me.blueslime.menuhandlerapi.InventoryHandlerAPI;
-import me.blueslime.menuhandlerapi.inventory.CustomInventory;
-import me.blueslime.menuhandlerapi.item.InventoryItem;
-import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
+import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
+import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.item.nbt.ItemNBT;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

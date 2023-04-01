@@ -1,8 +1,8 @@
-package me.blueslime.menuhandlerapi.inventory;
+package me.blueslime.inventoryhandlerapi.inventory;
 
-import me.blueslime.menuhandlerapi.inventory.item.DefaultItemBuilder;
-import me.blueslime.menuhandlerapi.item.InventoryItem;
-import me.blueslime.menuhandlerapi.utils.storage.PluginStorage;
+import me.blueslime.inventoryhandlerapi.inventory.item.DefaultItemBuilder;
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.utils.storage.PluginStorage;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;

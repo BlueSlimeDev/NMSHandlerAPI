@@ -1,4 +1,4 @@
-# MenuHandlerAPI | A SIMPLE MENU HANDLER USING NBT Items
+# InventoryHandlerAPI | A SIMPLE INVENTORY HANDLER USING NBT Items
 
 ---
 

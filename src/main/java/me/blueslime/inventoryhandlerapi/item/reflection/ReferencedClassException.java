@@ -1,4 +1,4 @@
-package me.blueslime.menuhandlerapi.item.reflection;
+package me.blueslime.inventoryhandlerapi.item.reflection;
 
 public class ReferencedClassException extends Exception {
     public ReferencedClassException(MinecraftEnum minecraft, String version) {

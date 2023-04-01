@@ -1,18 +1,15 @@
-package me.blueslime.menuhandlerapi.inventory.types;
+package me.blueslime.inventoryhandlerapi.inventory.types;
 
-import me.blueslime.menuhandlerapi.InventoryHandlerAPI;
-import me.blueslime.menuhandlerapi.inventory.CustomInventory;
-import me.blueslime.menuhandlerapi.item.InventoryItem;
-import me.blueslime.menuhandlerapi.item.nbt.ItemNBT;
+import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
+import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.item.nbt.ItemNBT;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
-
-public class DynamicInventory extends CustomInventory {
-
-    public DynamicInventory(String identifier) {
+public class StaticInventory extends CustomInventory {
+    public StaticInventory(String identifier) {
         super(identifier);
 
         InventoryHandlerAPI.getInventories().put(
@@ -25,14 +22,18 @@ public class DynamicInventory extends CustomInventory {
         if (clearInventory) {
             player.getInventory().clear();
         }
-
         for (InventoryItem item : getItemStorage().getValues()) {
             InventoryItem inventoryItem = getItemBuilder().processItem(
-                    player,
+                    null,
                     item
             );
 
             ItemStack itemStack = inventoryItem.getItemStack();
+
+            itemStack = ItemNBT.addString(
+                    itemStack, "iha-identifier",
+                    getId()
+            );
 
             itemStack = ItemNBT.addString(
                     itemStack, "ihi-" + getId(),
@@ -51,15 +52,14 @@ public class DynamicInventory extends CustomInventory {
                         "true"
                 );
             }
-
             player.getInventory().setItem(
                     inventoryItem.getSlot(),
                     itemStack
             );
-
         }
         player.updateInventory();
     }
+
 
     @Override
     public void fillBorders() {
@@ -72,12 +72,8 @@ public class DynamicInventory extends CustomInventory {
     }
 
     @Override
-    public Collection<InventoryItem> getItemList() {
-        return getItemStorage().getValues();
-    }
-
-    @Override
     public void setInventory(Player player, boolean clearInventory) {
         load(player, clearInventory);
     }
+
 }
