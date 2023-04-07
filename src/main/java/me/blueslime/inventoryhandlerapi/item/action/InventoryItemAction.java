@@ -1,22 +1,22 @@
 package me.blueslime.inventoryhandlerapi.item.action;
 
-import org.bukkit.event.inventory.InventoryClickEvent;
+import me.blueslime.inventoryhandlerapi.event.CustomInventoryClickEvent;
 
 import java.util.function.Predicate;
 
 public class InventoryItemAction {
 
-    private Predicate<InventoryClickEvent> clickEvent;
+    private Predicate<CustomInventoryClickEvent> clickEvent;
 
-    public InventoryItemAction(Predicate<InventoryClickEvent> clickEvent) {
+    public InventoryItemAction(Predicate<CustomInventoryClickEvent> clickEvent) {
         this.clickEvent = clickEvent;
     }
 
-    public void setClickEvent(Predicate<InventoryClickEvent> clickEvent) {
+    public void setClickEvent(Predicate<CustomInventoryClickEvent> clickEvent) {
         this.clickEvent = clickEvent;
     }
 
-    public Predicate<InventoryClickEvent> getClickEvent() {
+    public Predicate<CustomInventoryClickEvent> getClickEvent() {
         return clickEvent;
     }
 }

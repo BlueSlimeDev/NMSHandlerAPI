@@ -6,7 +6,7 @@
 
     <groupId>me.blueslime.inventoryhandlerapi</groupId>
     <artifactId>InventoryHandlerAPI</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <name>InventoryHandlerAPI</name>

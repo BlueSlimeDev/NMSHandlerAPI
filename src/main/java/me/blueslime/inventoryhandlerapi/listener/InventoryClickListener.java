@@ -1,6 +1,7 @@
 package me.blueslime.inventoryhandlerapi.listener;
 
 import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
+import me.blueslime.inventoryhandlerapi.event.CustomInventoryClickEvent;
 import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 import me.blueslime.inventoryhandlerapi.item.nbt.ItemNBT;
@@ -48,10 +49,17 @@ public class InventoryClickListener implements Listener {
 
                 if (inventoryItem != null && inventoryItem.getAction() != null) {
 
-                    Predicate<InventoryClickEvent> predicate = inventoryItem.getAction().getClickEvent();
+                    Predicate<CustomInventoryClickEvent> predicate = inventoryItem.getAction().getClickEvent();
 
                     if (predicate != null) {
-                        event.setCancelled(predicate.test(event));
+                        event.setCancelled(
+                                predicate.test(
+                                        new CustomInventoryClickEvent(
+                                                (Player)event.getWhoClicked(),
+                                                tag
+                                        )
+                                )
+                        );
                     }
                 }
             }
