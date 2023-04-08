@@ -31,24 +31,24 @@ public class StaticInventory extends CustomInventory {
             ItemStack itemStack = inventoryItem.getItemStack();
 
             itemStack = ItemNBT.addString(
-                    itemStack, "iha-identifier",
+                    itemStack, InventoryHandlerAPI.getCustomIdentifierPrefix() + "identifier",
                     getId()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "ihi-" + getId(),
+                    itemStack, InventoryHandlerAPI.getCustomPrefix() + getId(),
                     inventoryItem.getIdentifier()
             );
 
             itemStack = ItemNBT.addString(
-                    itemStack, "iha-name",
+                    itemStack, InventoryHandlerAPI.getCustomIdentifierPrefix() + "name",
                     getId()
             );
 
             if (inventoryItem.isBlocked()) {
                 itemStack = ItemNBT.addString(
                         itemStack,
-                        "iha-blockedItem",
+                        InventoryHandlerAPI.getCustomIdentifierPrefix() + "blockedItem",
                         "true"
                 );
             }

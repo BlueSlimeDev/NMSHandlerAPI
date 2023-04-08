@@ -23,7 +23,7 @@ public class PlayerInteractListener implements Listener {
 
         ItemStack item = event.getPlayer().getItemInHand();
 
-        String tag = ItemNBT.fromString(item, "iha-blockedItem");
+        String tag = ItemNBT.fromString(item, InventoryHandlerAPI.getCustomIdentifierPrefix() + "blockedItem");
         if (tag != null && !tag.isEmpty()) {
             event.setCancelled(true);
         }
@@ -38,7 +38,7 @@ public class PlayerInteractListener implements Listener {
 
         ItemStack current = event.getPlayer().getItemInHand();
 
-        String invId = ItemNBT.fromString(current, "iha-name");
+        String invId = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomIdentifierPrefix() + "name");
 
         if (invId == null || invId.isEmpty()) {
             return;
@@ -46,7 +46,7 @@ public class PlayerInteractListener implements Listener {
 
         CustomInventory customInventory = InventoryHandlerAPI.getInventories().get(invId);
 
-        String tag = ItemNBT.fromString(current, "ihi-" + customInventory.getId());
+        String tag = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomPrefix() + customInventory.getId());
 
         if (tag != null && !tag.isEmpty()) {
 

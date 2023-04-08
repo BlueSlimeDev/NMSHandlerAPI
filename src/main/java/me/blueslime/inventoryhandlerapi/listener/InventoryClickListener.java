@@ -20,7 +20,7 @@ public class InventoryClickListener implements Listener {
     public void onClick(InventoryClickEvent event) {
         if (event.getCurrentItem() != null) {
             ItemStack current = event.getCurrentItem();
-            String tag = ItemNBT.fromString(current, "iha-blockedItem");
+            String tag = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomIdentifierPrefix() + "blockedItem");
             if (tag != null && !tag.isEmpty()) {
                 event.setCancelled(true);
             }
@@ -33,7 +33,7 @@ public class InventoryClickListener implements Listener {
         if (event.getWhoClicked() instanceof Player) {
             ItemStack current = event.getCurrentItem();
 
-            String invId = ItemNBT.fromString(current, "iha-name");
+            String invId = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomIdentifierPrefix() + "name");
 
             if (invId == null || invId.isEmpty()) {
                 return;
@@ -41,7 +41,7 @@ public class InventoryClickListener implements Listener {
 
             CustomInventory customInventory = InventoryHandlerAPI.getInventories().get(invId);
 
-            String tag = ItemNBT.fromString(current, "ihi-" + customInventory.getId());
+            String tag = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomPrefix() + customInventory.getId());
 
             if (tag != null && !tag.isEmpty()) {
 
