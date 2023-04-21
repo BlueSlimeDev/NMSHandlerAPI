@@ -2,6 +2,10 @@
 
 ---
 
+[![](https://jitpack.io/v/BlueSlimeDev/NMSHandlerAPI.svg)](https://jitpack.io/#BlueSlimeDev/NMSHandlerAPI)
+
+---
+
 * Support from 1.8.x to 1.19.x
 * Support for different actions and other stuffs
 
