@@ -70,7 +70,7 @@ public class SpecifiedClass {
         String parameters = "";
 
         if (method.getParameters() != null) {
-            parameters = Arrays.stream(method.getParameters()).map(clazz -> clazz.getClass().getSimpleName() + ".class").collect(Collectors.joining(", "));
+            parameters = Arrays.stream(method.getParameters()).map(clazz -> clazz.getType().getSimpleName() + ".class").collect(Collectors.joining(", "));
         }
 
         sender.sendMessage("[NMSHandlerAPI] [Class] Method '" + method.getName() + "(" + parameters + ")" + "' of class '" + result.getSimpleName() + ".class'");
