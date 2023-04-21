@@ -1,18 +1,9 @@
-# InventoryHandlerAPI | A SIMPLE INVENTORY HANDLER USING NBT Items
+# NMSHandlerAPI | A Simple NMS Handler API
 
 ---
 
 * Support from 1.8.x to 1.19.x
-* Doesn't require Adapters like other inventory handlers
-* Uses NBT for Item Actions
-* Per Player Inventory or Static Inventories
-* Editable Item Actions
-* Editable introduce-items to inventories
-
----
-
-## Adding:
-* ItemBuilder
+* Support for different actions and other stuffs
 
 ---
 
@@ -28,10 +19,10 @@ Dependency:
 ```XML
         <dependency>
             <groupId>com.github.BlueSlimeDev</groupId>
-            <artifactId>InventoryHandlerAPI</artifactId>
+            <artifactId>NMSHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.2</version>
+            <version>0.1</version>
             -->
         </dependency>
 ```

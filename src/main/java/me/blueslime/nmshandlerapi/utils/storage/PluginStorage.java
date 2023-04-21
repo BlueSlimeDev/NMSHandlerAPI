@@ -1,4 +1,4 @@
-package me.blueslime.inventoryhandlerapi.utils.storage;
+package me.blueslime.nmshandlerapi.utils.storage;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
