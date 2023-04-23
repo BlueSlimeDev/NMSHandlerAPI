@@ -139,12 +139,36 @@ public class MethodContainer {
         return new MethodContainer(debugs, methods);
     }
 
+    public Object execute(Object invoker, Object... parameters) {
+        if (exists()) {
+            try {
+                if (parameters != null && parameters.length >= 1) {
+                    return reflectedMethod.invoke(
+                            invoker,
+                            parameters
+                    );
+                }
+                return reflectedMethod.invoke(
+                        invoker
+                );
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public Object execute(MethodExecutor executor) {
         if (exists()) {
             try {
+                if (executor.getParameters() != null && executor.getParameters().length >= 1) {
+                    return reflectedMethod.invoke(
+                            executor.getInvoker(),
+                            executor.getParameters()
+                    );
+                }
                 return reflectedMethod.invoke(
-                        executor.getInvoker(),
-                        executor.getParameters()
+                        executor.getInvoker()
                 );
             } catch (Exception exception) {
                 exception.printStackTrace();
