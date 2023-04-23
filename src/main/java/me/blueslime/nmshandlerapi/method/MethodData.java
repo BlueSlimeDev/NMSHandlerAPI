@@ -60,6 +60,14 @@ public class MethodData {
         return new MethodData(id, SearchMethod.DEFAULT, clazz,  name, parameters);
     }
 
+    public static MethodData build(Class<?> clazz, SearchMethod search, int id, String name, Class<?> parameters) {
+        return new MethodData(id, search, clazz, name, parameters);
+    }
+
+    public static MethodData build(Class<?> clazz, int id, String name, Class<?> parameters) {
+        return new MethodData(id, SearchMethod.DEFAULT, clazz, name, parameters);
+    }
+
     public enum SearchMethod {
         DECLARED,
         DEFAULT;
