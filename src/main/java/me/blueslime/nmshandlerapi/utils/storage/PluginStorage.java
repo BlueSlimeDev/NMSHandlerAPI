@@ -2,6 +2,7 @@ package me.blueslime.nmshandlerapi.utils.storage;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class PluginStorage<K, V> {
     private final Map<K, V> map;
@@ -10,8 +11,8 @@ public class PluginStorage<K, V> {
         this.map = initialMap;
     }
 
-    public void add(K key, V value) {
-        map.computeIfAbsent(key, F -> value);
+    public void add(K key, Function<? super K, ? extends V> function) {
+        map.computeIfAbsent(key, function);
     }
 
     public void set(K key, V value) {
@@ -30,8 +31,8 @@ public class PluginStorage<K, V> {
         return map.remove(key);
     }
 
-    public V get(K key, V value) {
-        add(key, value);
+    public V get(K key, Function<? super K, ? extends V> function) {
+        add(key, function);
         return map.get(key);
     }
 

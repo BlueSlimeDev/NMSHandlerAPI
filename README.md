@@ -26,7 +26,7 @@ Dependency:
             <artifactId>NMSHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.3</version>
+            <version>0.4</version>
             -->
         </dependency>
 ```
