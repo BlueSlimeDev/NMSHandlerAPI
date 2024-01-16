@@ -1,5 +1,6 @@
 package me.blueslime.nmshandlerapi.method;
 
+import me.blueslime.nmshandlerapi.SpecifiedClass;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -17,29 +18,33 @@ public class MethodContainer {
 
     private MethodContainer(List<MethodData> methods) {
         methodList.addAll(methods);
-        initialize();
     }
 
     private MethodContainer(MethodData... methods) {
         this.methodList.addAll(Arrays.asList(methods));
-        initialize();
     }
 
-    private MethodContainer(boolean debugs, List<MethodData> methods) {
-        methodList.addAll(methods);
-        initialize(debugs);
+    public MethodContainer initIn(boolean debugs, SpecifiedClass specifiedClass) {
+        return search(debugs, specifiedClass);
     }
 
-    private MethodContainer(boolean debugs, MethodData... methods) {
-        this.methodList.addAll(Arrays.asList(methods));
-        initialize(debugs);
+    public MethodContainer search(boolean debugs) {
+        return search(debugs, (Class<?>)null);
     }
 
-    private void initialize() {
-        initialize(false);
+    public MethodContainer search() {
+        return search(false, (Class<?>)null);
     }
 
-    private void initialize(boolean debugs) {
+    public MethodContainer search(boolean debugs, SpecifiedClass specifiedClass) {
+        if (specifiedClass.exists()) {
+            return search(debugs, specifiedClass.getResult());
+        } else {
+            return search(debugs, (Class<?>)null);
+        }
+    }
+
+    public MethodContainer search(boolean debugs, Class<?> customClazz) {
         String name = Bukkit.getServer().getClass().getPackage().getName();
 
         String version = name.substring(
@@ -49,9 +54,10 @@ public class MethodContainer {
         ConsoleCommandSender sender = Bukkit.getConsoleSender();
 
         for (MethodData data : methodList) {
-            if (data.getClazz() == null) continue;
+            if (data.getClazz() == null && customClazz == null) continue;
 
-            String location = data.getClazz().replace(
+
+            String location = customClazz == null ? data.getClazz().replace(
                     "[version]",
                     version
             ).replace(
@@ -63,7 +69,7 @@ public class MethodContainer {
             ).replace(
                     "[minecraft]",
                     "net.minecraft.server"
-            );
+            ) : "";
 
             String parameters = "";
 
@@ -73,23 +79,27 @@ public class MethodContainer {
 
             Class<?> clazz;
 
-            try {
-                if (data.getLocation() == null && !data.getClazz().isEmpty()) {
-                    clazz = Class.forName(
-                            location
-                    );
-                } else {
-                    if (data.getLocation() != null) {
-                        clazz = data.getLocation();
+            if (customClazz == null) {
+                try {
+                    if (data.getLocation() == null && !data.getClazz().isEmpty()) {
+                        clazz = Class.forName(
+                                location
+                        );
                     } else {
-                        throw new RuntimeException("You can't call a class without the class location");
+                        if (data.getLocation() != null) {
+                            clazz = data.getLocation();
+                        } else {
+                            throw new RuntimeException("You can't call a class without the class location");
+                        }
                     }
+                } catch (Exception ignored) {
+                    if (debugs) {
+                        sender.sendMessage("[NMSHandlerAPI] [MethodContainer] Class '" + data.getClazz() + "' was not found :(");
+                    }
+                    continue;
                 }
-            } catch (Exception ignored) {
-                if (debugs) {
-                    sender.sendMessage("[NMSHandlerAPI] [MethodContainer] Class '" + data.getClazz() + "' was not found :(");
-                }
-                continue;
+            } else {
+                clazz = customClazz;
             }
 
             try {
@@ -121,6 +131,7 @@ public class MethodContainer {
                 }
             }
         }
+        return this;
     }
 
     public static MethodContainer builder(List<MethodData> methods) {
@@ -129,14 +140,6 @@ public class MethodContainer {
 
     public static MethodContainer builder(MethodData... methods) {
         return new MethodContainer(methods);
-    }
-
-    public static MethodContainer builder(boolean debugs, List<MethodData> methods) {
-        return new MethodContainer(debugs, methods);
-    }
-
-    public static MethodContainer builder(boolean debugs, MethodData... methods) {
-        return new MethodContainer(debugs, methods);
     }
 
     public Object execute(Object invoker, Object... parameters) {
@@ -179,6 +182,10 @@ public class MethodContainer {
 
     public int getCurrentId() {
         return selectedMethod.getId();
+    }
+
+    public MethodResult getResult() {
+        return new MethodResult(getCurrentId(), selectedMethod);
     }
 
     public boolean exists() {

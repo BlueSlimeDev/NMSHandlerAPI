@@ -1,5 +1,6 @@
 package me.blueslime.nmshandlerapi;
 
+import me.blueslime.nmshandlerapi.method.MethodContainer;
 import me.blueslime.nmshandlerapi.method.MethodData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -101,5 +102,9 @@ public class SpecifiedClass {
 
     public static SpecifiedClass build(String... locations) {
         return build(true, locations);
+    }
+
+    public MethodContainer findMethods(MethodContainer container) {
+        return container;
     }
 }

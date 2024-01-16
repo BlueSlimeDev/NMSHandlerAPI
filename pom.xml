@@ -6,7 +6,7 @@
 
     <groupId>me.blueslime.nmshandlerapi</groupId>
     <artifactId>NMSHandlerAPI</artifactId>
-    <version>0.4</version>
+    <version>0.5.0</version>
     <packaging>jar</packaging>
 
     <name>NMSHandlerAPI</name>
